@@ -1,4 +1,4 @@
-# Smart Pool Thermometer
+# Smart Pool Thermometer - ESPHome Version
 
 ![PoolPhoto](/img/pool_photo.jpeg)
 

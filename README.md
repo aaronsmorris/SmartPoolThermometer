@@ -1,7 +1,6 @@
 # Smart Pool Thermometer
 
-![Dash](/img/dash.png)
-![PoolPhoto](/img/photo_pool.jpg)
+![PoolPhoto](/img/photo_pool.jpeg)
 
 ## Requirements
 

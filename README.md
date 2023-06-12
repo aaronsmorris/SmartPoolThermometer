@@ -153,4 +153,8 @@ script:
             - deep_sleep.enter: deep_sleep_enabled
       - script.execute: deep_sleep_evaluation
 
+## Create a Deep Sleep toggle in Home Assistant to enable/disable deep sleep on ESPHome Devices
+Follow the instructions on this blog to make a deep sleep toggle so you can turn deep sleepn on and off of your devices for testing or code updates.
+
+https://www.randomdiyprojects.it/esphome-and-deep-sleep/
 

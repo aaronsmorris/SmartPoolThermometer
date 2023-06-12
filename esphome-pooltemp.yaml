@@ -1,0 +1,77 @@
+esphome:
+  name: esphome-pooltemp01
+  friendly_name: pool_temp
+  on_boot:
+    priority: -100.0
+    then:
+      - script.execute: deep_sleep_evaluation
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: YOUR_KEY_HERE
+
+ota:
+
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  fast_connect: True
+  manual_ip:
+    static_ip: 192.168.1.XX
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "ESPHOME-POOLTEMP"
+    password: "wifipassword"
+
+captive_portal:
+
+# DS18B20 Temperature Sensor
+dallas:
+  - pin: D7
+    update_interval: 2s
+sensor:
+  - platform: dallas
+    address: 0xec3c79f64941df28
+    name: "Temperature"
+  - platform: adc
+    pin: A0
+    name: "Battery Voltage"
+    accuracy_decimals: 3
+    filters:
+      - multiply: 7.12
+    update_interval: 2s
+
+deep_sleep:
+  id: deep_sleep_enabled
+  #run_duration: 20sec # move this value to -delay- deep_sleep_evaluation script parameter
+  sleep_duration: 15min
+
+binary_sensor:
+  - platform: homeassistant
+    id: disable_deep_sleep
+    entity_id: input_boolean.disable_deep_sleep
+
+script:
+  - id: deep_sleep_evaluation
+    mode: queued
+    then:
+      - delay: 30s
+      - if:
+          condition:
+            binary_sensor.is_on: disable_deep_sleep
+          then:
+            - logger.log: 'Deep Sleep Disabled'
+          else:
+            - deep_sleep.enter: deep_sleep_enabled
+      - script.execute: deep_sleep_evaluation

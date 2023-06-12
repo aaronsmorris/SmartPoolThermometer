@@ -32,7 +32,6 @@ Code is compatible with both ESP8266 and ESP32 boards, but ESP8266 draws signifi
 ### Schematic 
 
 ![Schematic](/img/schematic.png)
-![Board](/img/board.jpg)
 
 ### Enclosure 
 

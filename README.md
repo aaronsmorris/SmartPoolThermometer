@@ -76,82 +76,10 @@ The linked prototype board fits inside well and can be screwed with some 1mm scr
 
 
 ## ESPHome YAML File
-esphome:
-  name: esphome-pooltemp01
-  friendly_name: pool_temp
-  on_boot:
-    priority: -100.0
-    then:
-      - script.execute: deep_sleep_evaluation
 
-esp8266:
-  board: d1_mini
+Here's an example of how I set up my ESPHome YAML for this sensor. It's a Dallas 18B20 temp sensor, and I use deep sleep to conserve power. Every 15m I report the temp and battery voltage. I use a deep sleep toggle entity on Home Assistant to tell the device when not to use deep sleep so that I can do OTA updates.
 
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: YOUR_KEY_HERE
-
-ota:
-
-
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  fast_connect: True
-  manual_ip:
-    static_ip: 192.168.1.XX
-    gateway: 192.168.1.1
-    subnet: 255.255.255.0
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "ESPHOME-POOLTEMP"
-    password: "wifipassword"
-
-captive_portal:
-
-# DS18B20 Temperature Sensor
-dallas:
-  - pin: D7
-    update_interval: 2s
-sensor:
-  - platform: dallas
-    address: 0xec3c79f64941df28
-    name: "Temperature"
-  - platform: adc
-    pin: A0
-    name: "Battery Voltage"
-    accuracy_decimals: 3
-    filters:
-      - multiply: 7.12
-    update_interval: 2s
-
-deep_sleep:
-  id: deep_sleep_enabled
-  sleep_duration: 15min
-
-binary_sensor:
-  - platform: homeassistant
-    id: disable_deep_sleep
-    entity_id: input_boolean.disable_deep_sleep
-
-script:
-  - id: deep_sleep_evaluation
-    mode: queued
-    then:
-      - delay: 30s
-      - if:
-          condition:
-            binary_sensor.is_on: disable_deep_sleep
-          then:
-            - logger.log: 'Deep Sleep Disabled'
-          else:
-            - deep_sleep.enter: deep_sleep_enabled
-      - script.execute: deep_sleep_evaluation
+![ESPHome YAML](/esphome-pooltemp.yaml)
 
 ## Create a Deep Sleep toggle in Home Assistant to enable/disable deep sleep on ESPHome Devices
 Follow the instructions on this blog to make a deep sleep toggle so you can turn deep sleepn on and off of your devices for testing or code updates.

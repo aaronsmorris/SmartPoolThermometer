@@ -2,6 +2,9 @@
 
 ![PoolPhoto](/img/pool_photo.jpeg)
 
+## Overview
+This is a version of the Smart Pool Thermometer by jaisor: https://github.com/jaisor/SmartPoolThermometer that uses ESPHome for the code instead of stand-alone arduino code. This makes it easy to setup and maintain in Home Assistant.
+
 ## Requirements
 
 * Floating water-tight pool sensor

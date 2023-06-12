@@ -6,24 +6,15 @@
 ## Requirements
 
 * Floating water-tight pool sensor
-* Temperature and other telemetry (internal battery voltage) readings submitted over Wifi via MQTT at reasonable intervals (~5min)
-* Low power consumption, battery powered with solar recharge during the day 
-* Device initial configuration via self-hosted AP (`ESP8266ST_XXXXX` / `password123`) / IP (`192.168.4.1`)
-* Device resets to (factory) defaults by 3 power-cycles within 2 seconds of boot
-* Device configurable over MQTT and capable of OTA firmware updates
-* Data visualization - MQTT - Prometheus - Grafana dashboard
+* Integrates with Home Assistant via ESPHome
+* Temperature and other telemetry (internal battery voltage) readings submitted over Wifi to ESPHome every 15min)
+* Low power consumption, battery powered with solar recharge during the day
 
 ## Notes
 
-Code is compatible with both ESP8266 and ESP32 boards, but ESP8266 draws significantly less power (4mA) during deep sleep
+Code is compatible with both ESP8266 and ESP32 boards, but ESP8266 draws significantly less power (4mA) during deep sleep. For my project, I used a Wemos D1 Mini ESP8266 clone.
 
-## Sensor
 
-### ESP8266 / ESP32 Development
-
-USB driver for Windows required: [Silicon Labs CP210X](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers)
-
-Recommended: [VSCode](https://code.visualstudio.com/) + [PlatformIO](https://platformio.org/)
 
 ### Bill of materials (BOM)
 

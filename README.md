@@ -33,6 +33,7 @@ Code is compatible with both ESP8266 and ESP32 boards, but ESP8266 draws signifi
 * [M3 6mm Button screws](https://www.amazon.com/dp/B083HCLFM1)
 
 ### Schematic 
+Below is the schematic from @jaisor version. I used the same design, except omitted the pushbutton for reset and the 1K resistor for the reset line.
 
 ![Schematic](/img/schematic.png)
 
